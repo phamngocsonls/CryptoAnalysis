@@ -23,7 +23,7 @@ class Crypto_analysis:
         parameters = {
         'start':'1',
         'limit':'100', # you can change this value to get bigger list, but it will effect raise the processing time around 2 min with each 100
-        'convert':'BUSD'#bridge coin (btcusdt) u can change it to BUSD or any bridge
+        'convert':'USDT'#bridge coin (btcusdt) u can change it to BUSD or any bridge
         }
         headers = {
         'Accepts': 'application/json',
