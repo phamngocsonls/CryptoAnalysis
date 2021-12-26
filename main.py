@@ -56,7 +56,6 @@ class Crypto_analysis:
             pass 
     
     def get_analysis_mma(ticker):
-        print(Crypto_analysis.interval)
         try:
             ticker_summery = TA_Handler(
                 symbol=ticker+"USDT",
