@@ -27,7 +27,7 @@ class Crypto_analysis:
         }
         headers = {
         'Accepts': 'application/json',
-            'X-CMC_PRO_API_KEY': 'API-KEY',
+            'X-CMC_PRO_API_KEY': 'API_KEY',
         }
 
         session = Session()
@@ -56,6 +56,7 @@ class Crypto_analysis:
             pass 
     
     def get_analysis_mma(ticker):
+        print(Crypto_analysis.interval)
         try:
             ticker_summery = TA_Handler(
                 symbol=ticker+"USDT",
@@ -88,6 +89,11 @@ class Crypto_analysis:
             pass
     
     def do_analysis():
+        with concurrent.futures.ProcessPoolExecutor() as executor:
+            Crypto_analysis.interval = "1 day"
+            futures = [executor.submit(Crypto_analysis.get_analysis_osc(ticker),) for ticker in Crypto_analysis.all]
+            futures = [executor.submit(Crypto_analysis.get_analysis_mma(ticker),) for ticker in Crypto_analysis.osc_coins.keys()]
+            print(Crypto_analysis.interval,Crypto_analysis.strong_buy)
         with concurrent.futures.ProcessPoolExecutor() as executor:
             Crypto_analysis.interval = "1 week"
             futures = [executor.submit(Crypto_analysis.get_analysis_osc(ticker),) for ticker in Crypto_analysis.all]
