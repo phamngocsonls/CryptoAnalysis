@@ -16,13 +16,13 @@ class Crypto_analysis:
     recommanded_list=[]
     
 
-    #this method collect the 75 latest cryptocurrency 
+    #this method collect the 100 latest cryptocurrency 
     #filtering them by taking only the positive changes in 1h, 24h, 7d, +Vol_24h
     def get_marketCap():
         url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
         parameters = {
         'start':'1',
-        'limit':'75', # you can change this value to get bigger list, but it will effect raise the processing time around 2 min with each 100
+        'limit':'100', # you can change this value to get bigger list, but it will effect raise the processing time around 2 min with each 100
         'convert':'USDT'#bridge coin (btcusdt) u can change it to BUSD or any bridge
         }
         headers = {
