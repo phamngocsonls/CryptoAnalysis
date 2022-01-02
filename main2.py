@@ -3,7 +3,6 @@ import json
 from requests import Session
 from tradingview_ta import *
 import concurrent.futures
-
 from binance.client import Client
 
 public = ""
