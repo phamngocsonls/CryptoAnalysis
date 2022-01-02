@@ -1,3 +1,8 @@
+# My fork for Binance Bot
+* Get top 18 coin strong buy from top 100 coin
+* Blacklist DOGE,SHIB,USD*
+* To install: pip3 install -r requirements.txt, replace your coinmarketcap API
+* To run: python3 main.py (Wait 2 min)
 # Crypto analysis
 
 Execution time for for 100 crypto currencies that they had a positive changes in the last 1h, 24h, 7days and volume change.
