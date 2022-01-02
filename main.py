@@ -93,7 +93,7 @@ class Crypto_analysis:
             futures = [executor.submit(Crypto_analysis.get_analysis_osc(ticker),) for ticker in Crypto_analysis.all]
             futures = [executor.submit(Crypto_analysis.get_analysis_mma(ticker),) for ticker in Crypto_analysis.osc_coins.keys()]
             output_list = Crypto_analysis.strong_buy
-            print(len(output_list))
+     
             black_list = ['SHIB','DOGE','USD']
             for i in black_list:
                 for j in output_list:
@@ -102,7 +102,8 @@ class Crypto_analysis:
             if len(output_list)>18:
                 output_list = output_list[:18]
             print(Crypto_analysis.interval,output_list)
-            print(len(output_list))
+            for i in output_list:
+                print(i)
 def main():
     Crypto_analysis.get_marketCap()
     Crypto_analysis.do_analysis()    
