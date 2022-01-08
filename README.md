@@ -5,6 +5,8 @@
 * To run: python3 main.py (Wait 2 min)
 
 more update: https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc
+https://api.coingecko.com/api/v3/coins/categories
+
 # Crypto analysis
 
 Execution time for for 100 crypto currencies that they had a positive changes in the last 1h, 24h, 7days and volume change.
