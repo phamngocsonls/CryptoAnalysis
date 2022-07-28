@@ -1,7 +1,7 @@
 # My fork for Binance Bot
 * Get top 18 coin strong buy from top 100 coin
 * Blacklist DOGE,SHIB,USD*
-* To install: pip3 install -r requirements.txt, replace your coinmarketcap API
+* To install: pip3 install -r requirements.txt, replace your coinmarketcap API "API_KEY"
 * To run: python3 main.py (Wait 2 min)
 
 more update: https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc
