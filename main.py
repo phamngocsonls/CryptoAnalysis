@@ -1,6 +1,7 @@
 from datetime import datetime
 import json
 from requests import Session
+import requests
 from tradingview_ta import *
 import concurrent.futures
 
@@ -96,14 +97,27 @@ class Crypto_analysis:
      
             black_list = ['SHIB','DOGE','USD']
             for i in black_list:
-                for j in output_list:
+                for j in output_list[:]:
                     if j.find(i) > -1:
                         output_list.remove(j)
             if len(output_list)>18:
                 output_list = output_list[:18]
             print(Crypto_analysis.interval,output_list)
+            change_dict = {}
+            for i in output_list:
+                change = get_24h_change(i)
+                change_dict[i] = change
+            print("24h change:", change_dict)
             for i in output_list:
                 print(i)
+
+def get_24h_change(coin_name):
+    url = "https://api.binance.com/api/v1/ticker/24hr?symbol=" + coin_name + "USDT"
+    r = requests.get(url)
+    data = r.json()
+    return round(float(data['priceChangePercent']),2)
+
+
 def main():
     Crypto_analysis.get_marketCap()
     Crypto_analysis.do_analysis()    
