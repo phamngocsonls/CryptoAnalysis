@@ -24,11 +24,11 @@ class Crypto_analysis:
         parameters = {
         'start':'1',
         'limit':'100', # you can change this value to get bigger list, but it will effect raise the processing time around 2 min with each 100
-        'convert':'USDT'#bridge coin (btcusdt) u can change it to BUSD or any bridge
+        'convert':'BUSD'#bridge coin (btcUSDT) u can change it to BUSD or any bridge
         }
         headers = {
         'Accepts': 'application/json',
-            'X-CMC_PRO_API_KEY': 'API_KEY',
+            'X-CMC_PRO_API_KEY': 'API-KEY-HERE',
         }
 
         session = Session()
@@ -45,10 +45,10 @@ class Crypto_analysis:
                     for i in data[d]:
                         ticker=i["symbol"]
                         Crypto_analysis.all.append(ticker)
-                        proc_1h = i["quote"]["USDT"]["percent_change_1h"]
-                        proc_24h= i["quote"]["USDT"]["percent_change_24h"]
-                        proc_7d = i["quote"]["USDT"]["percent_change_7d"]
-                        vol_ch24h=i["quote"]["USDT"]["volume_change_24h"]
+                        proc_1h = i["quote"]["BUSD"]["percent_change_1h"]
+                        proc_24h= i["quote"]["BUSD"]["percent_change_24h"]
+                        proc_7d = i["quote"]["BUSD"]["percent_change_7d"]
+                        vol_ch24h=i["quote"]["BUSD"]["volume_change_24h"]
                         changes[ticker] = [proc_1h,proc_24h ,proc_7d, vol_ch24h]
             
             Crypto_analysis.recommanded_list = [coin for coin in changes.keys() if changes[coin][0] and changes[coin][1]and changes[coin][2]and changes[coin][3]> 0] 
@@ -59,7 +59,7 @@ class Crypto_analysis:
     def get_analysis_mma(ticker):
         try:
             ticker_summery = TA_Handler(
-                symbol=ticker+"USDT",
+                symbol=ticker+"BUSD",
                 screener="crypto",
                 exchange="binance",
                 interval=Crypto_analysis.interval
@@ -78,7 +78,7 @@ class Crypto_analysis:
     def get_analysis_osc(ticker):
         try:
             ticker_summery = TA_Handler(
-                symbol=ticker+"USDT",
+                symbol=ticker+"BUSD",
                 screener="crypto",  
                 exchange="binance", 
                 interval=Crypto_analysis.interval 
@@ -103,16 +103,15 @@ class Crypto_analysis:
             if len(output_list)>18:
                 output_list = output_list[:18]
             print(Crypto_analysis.interval,output_list)
-            change_dict = {}
-            for i in output_list:
-                change = get_24h_change(i)
-                change_dict[i] = change
-            print("24h change:", change_dict)
-            for i in output_list:
-                print(i)
+            # change_dict = {}
+            # for i in output_list:
+            #     change = get_24h_change(i)
+            #     change_dict[i] = change
+            # print("24h change:", change_dict)
+            return output_list
 
 def get_24h_change(coin_name):
-    url = "https://api.binance.com/api/v1/ticker/24hr?symbol=" + coin_name + "USDT"
+    url = "https://api.binance.com/api/v1/ticker/24hr?symbol=" + coin_name + "BUSD"
     r = requests.get(url)
     data = r.json()
     return round(float(data['priceChangePercent']),2)
@@ -120,7 +119,8 @@ def get_24h_change(coin_name):
 
 def main():
     Crypto_analysis.get_marketCap()
-    Crypto_analysis.do_analysis()    
+    top_coin = Crypto_analysis.do_analysis()    
+    return top_coin
         
 if __name__ == '__main__':
-    main()
+    print("output:",main())
