@@ -5,6 +5,18 @@ import requests
 from tradingview_ta import *
 import concurrent.futures
 
+def get_binance_busd_pair():
+    response = requests.get("https://api.binance.com/api/v3/ticker/price").json()
+
+    busd_pairs = []
+
+    for ticker in response:
+        symbol = ticker["symbol"]
+        if symbol[-4:] == "BUSD":
+            busd_pairs.append(symbol[:-4])
+
+    return busd_pairs
+
 class Crypto_analysis:
     
     all=[]
@@ -94,20 +106,16 @@ class Crypto_analysis:
             futures = [executor.submit(Crypto_analysis.get_analysis_osc(ticker),) for ticker in Crypto_analysis.all]
             futures = [executor.submit(Crypto_analysis.get_analysis_mma(ticker),) for ticker in Crypto_analysis.osc_coins.keys()]
             output_list = Crypto_analysis.strong_buy
-     
-            black_list = ['SHIB','DOGE','USD']
+
+            busd_pair = get_binance_busd_pair()
+            black_list = ['SHIB','DOGE','USD','BNB']
             for i in black_list:
                 for j in output_list[:]:
-                    if j.find(i) > -1:
+                    if j.find(i) > -1 or j not in busd_pair:
                         output_list.remove(j)
             if len(output_list)>18:
                 output_list = output_list[:18]
             print(Crypto_analysis.interval,output_list)
-            # change_dict = {}
-            # for i in output_list:
-            #     change = get_24h_change(i)
-            #     change_dict[i] = change
-            # print("24h change:", change_dict)
             return output_list
 
 def get_24h_change(coin_name):
